@@ -27,6 +27,8 @@ $(document).ready(function() {
       timeRunning = !timeRunning;
     } else {
       interval = setInterval(function () {
+
+      //Defining the relative positions of the ball and gamescreen
         var ballLeft = $ball.offset().left;
         var ballTop = $ball.offset().top;
         var ballRight = ballLeft + $ball.outerWidth();
@@ -37,7 +39,12 @@ $(document).ready(function() {
         var gsRight = gsLeft + $gameScreen.outerWidth();
         var gsBottom = gsTop + $gameScreen.outerHeight();
 
-        // sets absolute starting point for the ball
+        var paddleLeft = $paddle.offset().left;
+        var paddleTop = $paddle.offset().top;
+        var paddleRight = paddleLeft + $paddle.outerWidth();
+        var paddleBottom = paddleTop + $paddle.outerHeight();
+
+
         // sets direction of movement
         if (directionX === "+") {
           $ball.css({'left': posX + "px"});
@@ -67,14 +74,28 @@ $(document).ready(function() {
           directionY = "+";
         }
 
-        if ($paddle.length != gsLeft && $paddle.length != gsRight) {
+        $gameScreen.mouseenter(function(e){
           $(document).bind('mousemove', function(e){
             $("#paddle").css({
-              left:  e.pageX - gsLeft,
+              left:  e.pageX - gsLeft - 35,
             });
           });
-        } else {
-        }
+        })
+        $gameScreen.mouseleave(function(e){
+          $(document).unbind()
+        });
+
+
+        // if (paddleLeft >= gsLeft || paddleRight <= gsRight)
+        // {
+        //   $(document).bind('mousemove', function(e){
+        //     $("#paddle").css({
+        //       left:  e.pageX - gsLeft,
+        //     });
+        //   });
+        // } else {
+        //   $(document).unbind('mousemove');
+        // }
 
       }, 10);
       timeRunning = !timeRunning;
