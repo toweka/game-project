@@ -1,0 +1,27 @@
+.screen {
+  border: 10px black solid;
+  background-color: lightblue;
+  margin-left: 200px;
+  width: 800px;
+  height: 500px;
+  margin-top: 50px;
+  align-content: center;
+}
+
+.lives {
+  float: right;
+}
+
+.score {
+  width: 10%;
+  float: left;
+}
+
+.gameScreen {
+  box-sizing: border-box;
+  border: 5px black solid;
+  width: 60%;
+  height: 80%;
+  margin: 10% 20%;
+  background-color: #f6f6f6;
+}
