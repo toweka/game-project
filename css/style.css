@@ -23,9 +23,9 @@
   border: 5px black solid;
   width: 60%;
   height: 80%;
-  margin: 8% 20%;
+  margin: 5% 20%;
   background-color: #f6f6f6;
-  /* position: absolute; */
+  position: absolute;
 }
 
 span {
@@ -44,6 +44,15 @@ body {
   background: firebrick;
   border-radius: 50%;
   position: absolute;
+}
+
+#paddle {
+  height: 10px;
+  width: 75px;
+  border-radius: 25%;
+  background: lightblue;
+  position: absolute;
+  bottom: 0;
 }
 
 .btn-container {
