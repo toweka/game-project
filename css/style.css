@@ -58,6 +58,7 @@ body {
   color:#999;
   transition: .2s;
   outline: none;
+  width: 20%;
 }
 #btn:hover {
   background: #999;
