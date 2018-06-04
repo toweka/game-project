@@ -5,7 +5,7 @@
   width: 800px;
   height: 500px;
   margin-top: 50px;
-  align-content: center;
+  position: relative;
 }
 
 .lives {
@@ -18,13 +18,14 @@
   float: left;
 }
 
-.gameScreen {
+#gameScreen {
   box-sizing: border-box;
   border: 5px black solid;
   width: 60%;
   height: 80%;
   margin: 8% 20%;
   background-color: #f6f6f6;
+  /* position: absolute; */
 }
 
 span {
