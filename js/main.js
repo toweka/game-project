@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var $ball = $("#ball");
-  var paddle;
+  var $paddle = $("#paddle");
   var firebrick;
   var $gameScreen = $("#gameScreen");
   var lives = 3;
@@ -65,6 +65,15 @@ $(document).ready(function() {
           directionX = "+";
         } else if (ballTop <= gsTop) {
           directionY = "+";
+        }
+
+        if ($paddle.length != gsLeft && $paddle.length != gsRight) {
+          $(document).bind('mousemove', function(e){
+            $("#paddle").css({
+              left:  e.pageX - gsLeft,
+            });
+          });
+        } else {
         }
 
       }, 10);
