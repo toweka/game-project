@@ -58,6 +58,14 @@ body {
   bottom: 0;
 }
 
+#brick {
+  position: absolute;
+  margin: 10px;
+  height: 15px;
+  width: 50px;
+  background: #2C43A1;
+}
+
 .btn-container {
   text-align: center;
 }
