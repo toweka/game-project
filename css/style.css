@@ -39,6 +39,7 @@ body {
   margin: 100px auto;
   background-image: url(http://www.lostinwanderlust.co.uk/wp-content/uploads/2017/12/darkrift-orig_full-1024x706.jpg);
   background-size: cover;
+  font-family: sans-serif;
 }
 
 #ball {
@@ -105,7 +106,7 @@ body {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    /* background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ */
 }
 
 /* Modal Content */

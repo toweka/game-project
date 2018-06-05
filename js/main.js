@@ -41,26 +41,24 @@ $(document).ready(function() {
     //   clearInterval(interval);
     //   alert("sdfnlsd");
     //   timeRunning = !timeRunning;
-    // } else {
-    $ball.css({
-    bottom : 0,
-    });
+    // // } else {
+    // $ball.css({
+    // bottom : 0,
+    // });
 
-       $ball = $("#ball");
-       $paddle = $("#paddle");
-       firebrick;
-       $gameScreen = $("#gameScreen");
-       lives = 3;
-       score = 0;
-       $("#score").html(score);
-       interval;
-       timeRunning = false;
+    lives = 3;
+    score = 0;
+    //Score being entered into the hmtl doc
+    $("#score").html(score);
+    timeRunning = false;
 
-       posX = ($paddle.offset().left - 375) + $paddle.outerWidth()/2;
-       posY = 360;
+       //ball starting position
+       // posX = ($paddle.offset().left - 375) + $paddle.outerWidth()/2;
+       // posY = 360;
 
-       directionX = "+";
-       directionY = "+";
+    ballStartPosition();
+
+       //initiates game
       interval = setInterval(function () {
 
       //Defining the relative positions of the ball and gamescreen
@@ -83,83 +81,88 @@ $(document).ready(function() {
       var brickTop = $brick.offset().top;
       var brickRight = brickLeft + $brick.outerWidth();
       var brickBottom = brickTop + $brick.outerHeight();
-        // var paddleX = ($gameScreen.outerWidth - $paddle.outerWidth)/2;
-        // var paddleWidth = paddleRight - paddleLeft;
-        //
-        // var x = $gameScreen.outerWidth / 2;
-        // var y = $gameScreen.outerHeight - 20;
+      // var paddleX = ($gameScreen.outerWidth - $paddle.outerWidth)/2;
+      // var paddleWidth = paddleRight - paddleLeft;
+      //
+      // var x = $gameScreen.outerWidth / 2;
+      // var y = $gameScreen.outerHeight - 20;
 
-        // sets direction of movement
-        if (directionX === "+") {
-          $ball.css({'left': posX + "px"});
-          // sets the number of pixels the ball moves per set time interval
-          posX += 1;
-        }
-        else if (directionX === "-") {
-          $ball.css({"left" : posX + "px"});
-          posX -= 1;
-        }
-        if (directionY === "+") {
-          $ball.css({'top': posY + "px"});
-          posY += 1;
-        }
-        else if (directionY === "-") {
-          $ball.css({"top" : posY + "px"});
-          posY -= 1;
-        }
+      // sets direction of movement
+      if (directionX === "+") {
+        $ball.css({'left': posX + "px"});
+        // sets the number of pixels the ball moves per set time interval
+        posX += 1;
+      }
+      else if (directionX === "-") {
+        $ball.css({"left" : posX + "px"});
+        posX -= 1;
+      }
+      if (directionY === "+") {
+        $ball.css({'top': posY + "px"});
+        posY += 1;
+      }
+      else if (directionY === "-") {
+        $ball.css({"top" : posY + "px"});
+        posY -= 1;
+      }
 
-        if (ballLeft <= paddleRight && ballRight >= paddleLeft && ballTop+10 >= paddleTop){
-            directionY = '-';
-        }
-        if(ballTop >= paddleTop) {
-            clearInterval(interval);
-            $('#gameOverModal').css({
-              display : "block"
-            });
-            $brick.css({
-              display: "block"
-            })
-          }
-         if (ballRight >= gsRight) {
-          directionX = "-";
-        } else if (ballLeft <= gsLeft) {
-          directionX = "+";
-        } else if (ballTop <= gsTop) {
-          directionY = "+";
-        }
+      //Collision function for paddle and ball
+      if (ballLeft <= paddleRight && ballRight >= paddleLeft && ballTop+10 >= paddleTop){
+          directionY = '-';
+      }
+      //game over function
+      if(ballTop >= paddleTop) {
+        clearInterval(interval);
+        $('#gameOverModal').css({display : "block"});
+        $brick.css({ display: "block"});
+      }
+        //Collision function for ball and walls
+      if (ballRight >= gsRight) {
+        directionX = "-";
+      } else if (ballLeft <= gsLeft) {
+        directionX = "+";
+      } else if (ballTop <= gsTop) {
+        directionY = "+";
+      }
 
-        // collison with brick
-        if (ballTop <= brickBottom && ballLeft <= brickRight && ballRight >= brickLeft) {
-          $brick.css({
-            display: "none"
-          });
-          directionY = "+";
-          score += 10;
-          $("#score").html(score)
-        }
+      // collison with brick
+      if (ballTop <= brickBottom && ballLeft <= brickRight && ballRight >= brickLeft) {
+        $brick.css({display: "none"});
+        directionY = "+";
+        score += 10;
+        $("#score").html(score);
+      }
 
-        $gameScreen.mouseenter(function(e){
-          $(document).bind('mousemove', function(e){
-            $("#paddle").css({
-              left:  e.pageX - gsLeft - 35,
-            });
-          });
-        })
-        $gameScreen.mouseleave(function(e){
-          $(document).unbind()
+      //paddle movement function w/ mouse
+      $gameScreen.mouseenter(function(e){
+        $(document).bind('mousemove', function(e){
+          $("#paddle").css({left:  e.pageX - gsLeft - 35});
         });
+      })
+      //unbind move function when out of screen
+      $gameScreen.mouseleave(function(e){
+        $(document).unbind()
+      });
 
-      }, 10);
-      timeRunning = !timeRunning;
+    }, 1);
+    timeRunning = !timeRunning;
     // }
 
   })
+
+  //reset button for the modal
   $("#tryagainBtn").click(function(){
-    $('#gameOverModal').css({
-      display : "none"
-    });
+    $('#gameOverModal').css({display : "none"});
+    ballStartPosition();
   })
 
-  console.log();
+  function ballStartPosition() {
+    posX = ($paddle.offset().left - 375) + $paddle.outerWidth()/2;
+    posY = 360;
+    directionX = "+";
+    directionY = "+";
+    $ball.css({'left': posX + "px"});
+    $ball.css({"top" : posY + "px"});
+  }
 
 })
