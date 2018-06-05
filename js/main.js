@@ -36,30 +36,17 @@ $(document).ready(function() {
 
     $brick = $(".brick")
 
-    // if (timeRunning == "true") {
-    //   // reset the ball to original position and set timeRunning to false
-    //   clearInterval(interval);
-    //   alert("sdfnlsd");
-    //   timeRunning = !timeRunning;
-    // // } else {
-    // $ball.css({
-    // bottom : 0,
-    // });
-
     lives = 3;
     score = 0;
     //Score being entered into the hmtl doc
     $("#score").html(score);
+    $("#lives").html(lives);
     timeRunning = false;
-
-       //ball starting position
-       // posX = ($paddle.offset().left - 375) + $paddle.outerWidth()/2;
-       // posY = 360;
 
     ballStartPosition();
 
        //initiates game
-      interval = setInterval(function () {
+    interval = setInterval(function () {
 
       //Defining the relative positions of the ball and gamescreen
       var ballLeft = $ball.offset().left;
@@ -112,9 +99,7 @@ $(document).ready(function() {
       }
       //game over function
       if(ballTop >= paddleTop) {
-        clearInterval(interval);
-        $('#gameOverModal').css({display : "block"});
-        $brick.css({ display: "block"});
+        gameOver();
       }
         //Collision function for ball and walls
       if (ballRight >= gsRight) {
@@ -127,10 +112,8 @@ $(document).ready(function() {
 
       // collison with brick
       if (ballTop <= brickBottom && ballLeft <= brickRight && ballRight >= brickLeft) {
-        $brick.css({display: "none"});
-        directionY = "+";
-        score += 10;
-        $("#score").html(score);
+        brickCollision();
+        winner();
       }
 
       //paddle movement function w/ mouse
@@ -146,15 +129,29 @@ $(document).ready(function() {
 
     }, 1);
     timeRunning = !timeRunning;
-    // }
+
 
   })
 
   //reset button for the modal
-  $("#tryagainBtn").click(function(){
+  $(".tryagainBtn").click(function(){
     $('#gameOverModal').css({display : "none"});
+    $('#winner').css({display : "none"});
     ballStartPosition();
   })
+
+  function gameOver() {
+    clearInterval(interval);
+    $('#gameOverModal').css({display : "block"});
+    $brick.css({ display: "block"});
+  }
+
+  function brickCollision() {
+    $brick.css({display: "none"});
+    directionY = "+";
+    score += 10;
+    $("#score").html(score);
+  }
 
   function ballStartPosition() {
     posX = ($paddle.offset().left - 375) + $paddle.outerWidth()/2;
@@ -163,6 +160,12 @@ $(document).ready(function() {
     directionY = "+";
     $ball.css({'left': posX + "px"});
     $ball.css({"top" : posY + "px"});
+  }
+
+  function winner() {
+    if (score >= 10) {
+      $('#winner').css({display : "block"});
+    }
   }
 
 })
