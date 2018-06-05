@@ -47,6 +47,7 @@ body {
   background: firebrick;
   border-radius: 50%;
   position: absolute;
+  bottom: 0;
 }
 
 #paddle {
