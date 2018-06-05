@@ -21,11 +21,32 @@ $(document).ready(function() {
 
   $("#btn").click(function(){
 
-    if (timeRunning == "true") {
-      // reset the ball to original position and set timeRunning to false
-      clearInterval(interval)
-      timeRunning = !timeRunning;
-    } else {
+    // if (timeRunning == "true") {
+    //   // reset the ball to original position and set timeRunning to false
+    //   clearInterval(interval);
+    //   alert("sdfnlsd");
+    //   timeRunning = !timeRunning;
+    // } else {
+    $ball.css({
+      top : 2,
+      left: 2,
+    });
+
+       $ball = $("#ball");
+       $paddle = $("#paddle");
+       firebrick;
+       $gameScreen = $("#gameScreen");
+       lives = 3;
+       score = 0;
+
+       interval;
+       timeRunning = false;
+
+       posX = 0;
+       posY = 0;
+
+       directionX = "+";
+       directionY = "+";
       interval = setInterval(function () {
 
       //Defining the relative positions of the ball and gamescreen
@@ -43,7 +64,11 @@ $(document).ready(function() {
         var paddleTop = $paddle.offset().top;
         var paddleRight = paddleLeft + $paddle.outerWidth();
         var paddleBottom = paddleTop + $paddle.outerHeight();
-
+        // var paddleX = ($gameScreen.outerWidth - $paddle.outerWidth)/2;
+        // var paddleWidth = paddleRight - paddleLeft;
+        //
+        // var x = $gameScreen.outerWidth / 2;
+        // var y = $gameScreen.outerHeight - 20;
 
         // sets direction of movement
         if (directionX === "+") {
@@ -64,16 +89,24 @@ $(document).ready(function() {
           posY -= 1;
         }
 
-        if (ballBottom >= gsBottom) {
-          directionY = '-';
-        }  else if (ballRight >= gsRight) {
+        if (ballLeft <= paddleRight && ballRight >= paddleLeft && ballTop+10 >= paddleTop){
+            directionY = '-';
+        }
+        if(ballTop >= paddleTop) {
+            clearInterval(interval);
+            console.log("gameOver");
+            $('#gameOverModal').css({
+              display : "block"
+            });
+            // directionY = '-';
+          }
+         if (ballRight >= gsRight) {
           directionX = "-";
         } else if (ballLeft <= gsLeft) {
           directionX = "+";
         } else if (ballTop <= gsTop) {
           directionY = "+";
         }
-
         $gameScreen.mouseenter(function(e){
           $(document).bind('mousemove', function(e){
             $("#paddle").css({
@@ -85,23 +118,15 @@ $(document).ready(function() {
           $(document).unbind()
         });
 
-
-        // if (paddleLeft >= gsLeft || paddleRight <= gsRight)
-        // {
-        //   $(document).bind('mousemove', function(e){
-        //     $("#paddle").css({
-        //       left:  e.pageX - gsLeft,
-        //     });
-        //   });
-        // } else {
-        //   $(document).unbind('mousemove');
-        // }
-
       }, 10);
       timeRunning = !timeRunning;
-    }
+    // }
 
   })
-
+  $("#tryagainBtn").click(function(){
+    $('#gameOverModal').css({
+      display : "none"
+    });
+  })
 
 })
