@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   var $ball = $("#ball");
   var $paddle = $("#paddle");
-  var $brick = $("#brick")
+  var $brick = $(".brick");
   var firebrick;
   var $gameScreen = $("#gameScreen");
   var lives = 3;
@@ -22,6 +22,20 @@ $(document).ready(function() {
 
   $("#btn").click(function(){
 
+    // making multiple bricks
+    // var brickPositonLeft = -50;
+    //
+    // for (var i = 0; i < 7; i++) {
+    //   brick = document.createElement("div");
+    //   brick.className = "brick";
+    //   brickPositonLeft += 60;
+    //   brick.style.left = brickPositonLeft + "px";
+    //   // brick.style.top = 10 + "px";
+    //   document.body.children[0].children[3].appendChild(brick);
+    // }
+
+    $brick = $(".brick")
+
     // if (timeRunning == "true") {
     //   // reset the ball to original position and set timeRunning to false
     //   clearInterval(interval);
@@ -38,7 +52,7 @@ $(document).ready(function() {
        $gameScreen = $("#gameScreen");
        lives = 3;
        score = 0;
-
+       $("#score").html(score);
        interval;
        timeRunning = false;
 
@@ -102,7 +116,9 @@ $(document).ready(function() {
             $('#gameOverModal').css({
               display : "block"
             });
-            // directionY = '-';
+            $brick.css({
+              display: "block"
+            })
           }
          if (ballRight >= gsRight) {
           directionX = "-";
@@ -118,6 +134,8 @@ $(document).ready(function() {
             display: "none"
           });
           directionY = "+";
+          score += 10;
+          $("#score").html(score)
         }
 
         $gameScreen.mouseenter(function(e){
