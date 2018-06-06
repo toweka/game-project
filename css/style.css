@@ -74,7 +74,7 @@ body {
   text-align: center;
 }
 
-#btn {
+#startBtn, #resetBtn {
   font-size: 1.5em;
   padding:.5em .5em;
   background: none;
@@ -86,12 +86,17 @@ body {
   width: 15%;
   margin-bottom: 10px;
 }
-#btn:hover {
+
+#resetBtn{
+  display: none;
+}
+
+#startBtn:hover, #resetBtn:hover {
   background: #999;
   color: white;
   border: 2px solid #999;
 }
-#btn:active {
+#startBtn:active, #resetBtn:active {
   background: #666;
   color: white;
   border: 2px solid #666;

@@ -12,11 +12,11 @@
       <p class="score">Score: <span id="score"></span></p>
       <p class="lives">Lives: <span id="lives"></span></p>
       <div id="gameScreen">
-        <!-- <div class="brick"></div> -->
         <div id="ball"></div>
         <div id="paddle"></div>
       </div>
-      <button type="button" name="button" id="btn">START</button>
+      <button type="button" name="button" id="startBtn">START</button>
+      <button type="button" name="button" id="resetBtn">Reset</button>
     </div>
 
     <div id="gameOverModal" class="modal">
@@ -34,6 +34,15 @@
       <div class="modal-content">
         <h1>You Win!!</h1>
         <button class="tryagainBtn" type="button" name="button">Try Again</button>
+      </div>
+
+    </div>
+    <div id="lostLife" class="modal">
+
+
+      <div class="modal-content">
+        <h1>Life Lost</h1>
+        <button class="continue" type="button" name="button">Continue?</button>
       </div>
 
     </div>
