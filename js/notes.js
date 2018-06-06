@@ -86,7 +86,7 @@ $(document).ready(function() {
           directionY = '-';
       }
       //game over function
-      if(ballTop >= paddleTop) {
+      if(ballTop >= paddleTop && lives >= 0) {
         continue1();
         lives -= 1;
       }
@@ -102,6 +102,10 @@ $(document).ready(function() {
       // collison with brick
       for (var i = 0; i < $('.brick').length; i++) {
         collisonDetection($("#"+i), i);
+      }
+
+      if (lives < 0) {
+        gameOver();
       }
 
       //paddle movement function w/ mouse
@@ -125,6 +129,7 @@ $(document).ready(function() {
     $('#gameOverModal').css({display : "none"});
     $('#winner').css({display : "none"});
     ballStartPosition();
+    clearInterval(interval);
     score = 0;
   })
 
@@ -150,7 +155,6 @@ $(document).ready(function() {
   function gameOver() {
     clearInterval(interval);
     $('#gameOverModal').css({display : "block"});
-    $brick.css({ display: "block"});
   }
 
   function continue1() {
