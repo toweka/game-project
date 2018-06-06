@@ -24,6 +24,7 @@ $(document).ready(function() {
 
     // making multiple bricks
     var brickPositonLeft = -50;
+    var brickPositonTop = 20;
 
     function createBrickFeild() {
       for (var i = 0; i < 7; i++) {
@@ -38,6 +39,34 @@ $(document).ready(function() {
       }
     }
 
+    function createBrickFeild1(){
+      for (var i = 7; i < 14; i++) {
+        jQuery('<div/>', {
+          id: i,
+          class: 'brick '+i,
+        }).appendTo('#gameScreen');
+        brickPositonLeft += 60;
+        $("#"+i).css({
+          left: (brickPositonLeft - 420) + "px",
+          top: brickPositonTop + "px",
+        });
+      }
+    }
+
+    function createBrickFeild2(){
+      for (var i = 14; i < 21; i++) {
+        jQuery('<div/>', {
+          id: i,
+          class: 'brick '+i,
+        }).appendTo('#gameScreen');
+        brickPositonLeft += 60;
+        $("#"+i).css({
+          left: (brickPositonLeft - 840) + "px",
+          top: (brickPositonTop + 20) + "px",
+        });
+      }
+    }
+
     lives = 3;
     score = 0;
     //Score being entered into the hmtl doc
@@ -46,6 +75,8 @@ $(document).ready(function() {
     timeRunning = false;
 
     createBrickFeild();
+    createBrickFeild1();
+    createBrickFeild2();
     ballStartPosition();
 
        //initiates game
@@ -112,10 +143,6 @@ $(document).ready(function() {
       // collison with brick
       for (var i = 0; i < $('.brick').length; i++) {
         collisonDetection($("#"+i), i);
-
-        // if (ballTop <= brickBottom && (ballLeft <= brickRight || ballRight >= brickLeft)) {
-        //   brickCollision($("#"+i));
-        // }
       }
 
       //paddle movement function w/ mouse
@@ -140,6 +167,7 @@ $(document).ready(function() {
     $('#winner').css({display : "none"});
     ballStartPosition();
     score = 0;
+
   })
 
   function gameOver() {

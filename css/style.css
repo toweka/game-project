@@ -27,6 +27,8 @@
   background-color: #f6f6f6;
   position: absolute;
   cursor: none;
+  display: flex;
+  flex: auto;
 }
 
 span {
