@@ -7,19 +7,18 @@
   </head>
   <body>
 
-    <!-- The Modal -->
-
     <div class="screen">
       <span><p>BREAKOUT - #WARNING, Seriously addictive!!</p></span>
       <p class="score">Score: <span id="score"></span></p>
       <p class="lives">Lives: <span id="lives"></span></p>
       <div id="gameScreen">
-        <div class="brick"></div>
         <div id="ball"></div>
         <div id="paddle"></div>
       </div>
-      <button type="button" name="button" id="btn">START</button>
+      <button type="button" name="button" id="startBtn">START</button>
+      <button type="button" name="button" id="resetBtn">Reset</button>
     </div>
+
     <div id="gameOverModal" class="modal">
 
 
@@ -38,8 +37,17 @@
       </div>
 
     </div>
+    <div id="lostLife" class="modal">
+
+
+      <div class="modal-content">
+        <h1>Life Lost</h1>
+        <button class="continue" type="button" name="button">Continue?</button>
+      </div>
+
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/main.js">
+    <script type="text/javascript" src="js/notes.js">
     </script>
   </body>
 </html>

@@ -17,48 +17,27 @@ $(document).ready(function() {
   var directionX = "+";
   var directionY = "+";
 
+  // making multiple bricks
+  var brickPositonLeft = -50;
+  var brickPositonTop = 20;
+
+  createBrickField();
+  createBrickField1();
+  createBrickField2();
+
 
   // var offset = $ball.offset;
 
-  $("#btn").click(function(){
+  $("#startBtn").click(function(){
 
-    // making multiple bricks
-    var brickPositonLeft = -50;
-
-    // for (var i = 0; i < 7; i++) {
-    //   brick = document.createElement("div");
-    //   brick.className = "brick";
-    //   brickPositonLeft += 60;
-    //   brick.style.left = brickPositonLeft + "px";
-    //   // brick.style.top = 10 + "px";
-    //   document.body.children[0].children[3].appendChild(brick);
-    // }
-
-    function createBrickFeild() {
-      for (var i = 0; i < 7; i++) {
-        brick = document.createElement("div");
-        brick.className = "brick " + i;
-        // $brick.attr('id', + i);
-        brickPositonLeft += 60;
-        brick.style.left = brickPositonLeft + "px";
-        // brick.style.top = 10 + "px";
-        document.body.children[0].children[3].appendChild(brick);
-        $brick = $("." + i);
-        // $brick.style.background = "blue" ;
-      }
-    }
-
-    lives = 3;
-    score = 0;
     //Score being entered into the hmtl doc
     $("#score").html(score);
     $("#lives").html(lives);
     timeRunning = false;
 
-    createBrickFeild();
     ballStartPosition();
 
-       //initiates game
+    //initiates game
     interval = setInterval(function () {
       winner();
 
@@ -78,10 +57,10 @@ $(document).ready(function() {
       var paddleRight = paddleLeft + $paddle.outerWidth();
       var paddleBottom = paddleTop + $paddle.outerHeight();
 
-      var brickLeft = $brick.offset().left;
-      var brickTop = $brick.offset().top;
-      var brickRight = brickLeft + $brick.outerWidth();
-      var brickBottom = brickTop + $brick.outerHeight();
+      var brickLeft;
+      var brickTop;
+      var brickRight;
+      var brickBottom;
 
       // sets direction of movement
       if (directionX === "+") {
@@ -108,7 +87,8 @@ $(document).ready(function() {
       }
       //game over function
       if(ballTop >= paddleTop) {
-        gameOver();
+        continue1();
+        lives -= 1;
       }
         //Collision function for ball and walls
       if (ballRight >= gsRight) {
@@ -120,9 +100,8 @@ $(document).ready(function() {
       }
 
       // collison with brick
-      if (ballTop <= brickBottom && ballLeft <= brickRight && ballRight >= brickLeft) {
-        collisonDetection();
-        brickCollision();
+      for (var i = 0; i < $('.brick').length; i++) {
+        collisonDetection($("#"+i), i);
       }
 
       //paddle movement function w/ mouse
@@ -149,21 +128,56 @@ $(document).ready(function() {
     score = 0;
   })
 
+  $("#resetBtn").click(function(){
+    $(".brick").remove();
+    $("#startBtn").html("Start");
+    $('#resetBtn').css({display : "none"});
+    score = 0;
+    lives = 3;
+    brickPositonLeft = -50;
+    brickPositonTop = 20;
+    createBrickField();
+    createBrickField1();
+    createBrickField2();
+    clearInterval(interval);
+  })
+
+  $(".continue").click(function(){
+    $('#lostLife').css({display : "none"});
+    $("#startBtn").html("Restart");
+  })
+
   function gameOver() {
     clearInterval(interval);
     $('#gameOverModal').css({display : "block"});
     $brick.css({ display: "block"});
   }
 
-  function collisonDetection() {
-     brickLeft = $brick.offset().left;
-     brickTop = $brick.offset().top;
-     brickRight = brickLeft + $brick.outerWidth();
-     brickBottom = brickTop + $brick.outerHeight();
+  function continue1() {
+    $('#lostLife').css({display : "block"});
+    $('#resetBtn').css({display : "inline-block"});
+    clearInterval(interval);
+    ballStartPosition();
   }
 
-  function brickCollision() {
-    $brick.css({display: "none"});
+  function collisonDetection($this, i) {
+   brickLeft = $this.offset().left;
+   brickTop = $this.offset().top;
+   brickRight =  brickLeft + $this.outerWidth();
+   brickBottom =  brickTop + $this.outerHeight();
+
+   var ballLeft = $ball.offset().left;
+   var ballTop = $ball.offset().top;
+   var ballRight = ballLeft + $ball.outerWidth();
+   var ballBottom = ballTop + $ball.outerHeight();
+
+   if (ballTop <= brickBottom && ballLeft <= brickRight && ballRight >= brickLeft) {
+     brickCollisionBottom($("#"+i), i);
+   }
+  }
+
+  function brickCollisionBottom($this, i) {
+    $('#'+i).css({display: "none"});
     directionY = "+";
     score += 10;
     $("#score").html(score);
@@ -179,8 +193,49 @@ $(document).ready(function() {
   }
 
   function winner() {
-    if (score >= 100) {
+    if (score >= 210) {
       $('#winner').css({display : "block"});
+    }
+  }
+
+  function createBrickField() {
+    for (var i = 0; i < 7; i++) {
+      jQuery('<div/>', {
+        id: i,
+        class: 'brick '+i,
+      }).appendTo('#gameScreen');
+      brickPositonLeft += 60;
+      $("#"+i).css({
+        left: brickPositonLeft + "px",
+      });
+    }
+  }
+
+  function createBrickField1(){
+    for (var i = 7; i < 14; i++) {
+      jQuery('<div/>', {
+        id: i,
+        class: 'brick '+i,
+      }).appendTo('#gameScreen');
+      brickPositonLeft += 60;
+      $("#"+i).css({
+        left: (brickPositonLeft - 420) + "px",
+        top: brickPositonTop + "px",
+      });
+    }
+  }
+
+  function createBrickField2(){
+    for (var i = 14; i < 21; i++) {
+      jQuery('<div/>', {
+        id: i,
+        class: 'brick '+i,
+      }).appendTo('#gameScreen');
+      brickPositonLeft += 60;
+      $("#"+i).css({
+        left: (brickPositonLeft - 840) + "px",
+        top: (brickPositonTop + 20) + "px",
+      });
     }
   }
 
