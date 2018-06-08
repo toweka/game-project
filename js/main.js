@@ -26,12 +26,6 @@ $(document).ready(function() {
   var brickPositonTop = 20;
 
   createBrickField();
-  createBrickField1();
-  createBrickField2();
-  createBrickField3();
-  createBrickField4();
-  createBrickField5();
-  createBrickField6();
 
   $("#startBtn").click(function(){
 
@@ -128,7 +122,7 @@ $(document).ready(function() {
         $(document).unbind()
       });
 
-    }, 0.01);
+    }, 0.5);
     timeRunning = !timeRunning;
 
   })
@@ -188,9 +182,9 @@ $(document).ready(function() {
     brickCollisionBottom($("#"+i), i);
    }
 
-   if (ballTop <= brickBottom && ballTop >= brickTop && ballRight == brickLeft) {
-     brickCollisionLeft($("#"+i), i);
-   }
+   // if (ballTop <= brickBottom && ballTop >= brickTop && ballRight == brickLeft) {
+   //   brickCollisionLeft($("#"+i), i);
+   // }
   }
 
   function smashSound() {
@@ -248,7 +242,7 @@ $(document).ready(function() {
   }
 
   function winner() {
-    if (score >= 350) {
+    if (score >= 490) {
       $('#winner').css({display : "block"});
       clearInterval(interval);
       victorySound();
@@ -256,98 +250,16 @@ $(document).ready(function() {
   }
 
   function createBrickField() {
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 49; i++) {
       jQuery('<div/>', {
         id: i,
         class: 'brick '+i,
       }).appendTo('#gameScreen');
       brickPositonLeft += 60;
+      var brickRow = Math.floor(i / 7);
       $("#"+i).css({
-        left: brickPositonLeft + "px",
-      });
-    }
-  }
-
-  function createBrickField1(){
-    for (var i = 7; i < 14; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 420) + "px",
-        top: brickPositonTop + "px",
-      });
-    }
-  }
-
-  function createBrickField2(){
-    for (var i = 14; i < 21; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 840) + "px",
-        top: (brickPositonTop + 20) + "px",
-      });
-    }
-  }
-
-  function createBrickField3(){
-    for (var i = 21; i < 28; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 1260) + "px",
-        top: (brickPositonTop + 40) + "px",
-      });
-    }
-  }
-
-  function createBrickField4(){
-    for (var i = 28; i < 35; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 1680) + "px",
-        top: (brickPositonTop + 60) + "px",
-      });
-    }
-  }
-
-  function createBrickField5(){
-    for (var i = 35; i < 42; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 2100) + "px",
-        top: (brickPositonTop + 80) + "px",
-      });
-    }
-  }
-
-  function createBrickField6(){
-    for (var i = 42; i < 49; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 2520) + "px",
-        top: (brickPositonTop + 100) + "px",
+        left: (brickPositonLeft - brickRow * 420) + "px",
+        top: (brickPositonTop + (brickRow - 1) * 20) + "px"
       });
     }
   }

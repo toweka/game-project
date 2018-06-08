@@ -7,6 +7,10 @@ $(document).ready(function() {
   var $gameScreen = $("#gameScreen");
   var lives = 3;
   var score = 0;
+  var $smashSound = document.getElementById("smashSound");
+  var $gameOverSound = document.getElementById("gameOverSound");
+  var $lifeGoneSound = document.getElementById("lifeGoneSound");
+  var $victorySound = document.getElementById("victorySound");
 
   var interval;
   var timeRunning = false;
@@ -22,11 +26,6 @@ $(document).ready(function() {
   var brickPositonTop = 20;
 
   createBrickField();
-  createBrickField1();
-  createBrickField2();
-
-
-  // var offset = $ball.offset;
 
   $("#startBtn").click(function(){
 
@@ -34,6 +33,7 @@ $(document).ready(function() {
     $("#score").html(score);
     $("#lives").html(lives);
     timeRunning = false;
+    // $smashSound = new sound("../audio/smashSound.mp3")
 
     ballStartPosition();
 
@@ -89,6 +89,7 @@ $(document).ready(function() {
       if(ballTop >= paddleTop && lives >= 0) {
         continue1();
         lives -= 1;
+        lifeGoneSound();
       }
         //Collision function for ball and walls
       if (ballRight >= gsRight) {
@@ -102,10 +103,12 @@ $(document).ready(function() {
       // collison with brick
       for (var i = 0; i < $('.brick').length; i++) {
         collisonDetection($("#"+i), i);
+        // $smashSound.play();
       }
 
       if (lives < 0) {
         gameOver();
+        gameOverSound();
       }
 
       //paddle movement function w/ mouse
@@ -119,7 +122,7 @@ $(document).ready(function() {
         $(document).unbind()
       });
 
-    }, 1);
+    }, 0.5);
     timeRunning = !timeRunning;
 
   })
@@ -176,13 +179,55 @@ $(document).ready(function() {
    var ballBottom = ballTop + $ball.outerHeight();
 
    if (ballTop <= brickBottom && ballLeft <= brickRight && ballRight >= brickLeft) {
-     brickCollisionBottom($("#"+i), i);
+    brickCollisionBottom($("#"+i), i);
    }
+
+   if (ballTop <= brickBottom && ballTop >= brickTop && ballRight == brickLeft) {
+     brickCollisionLeft($("#"+i), i);
+   }
+  }
+
+  function smashSound() {
+    $smashSound.play();
+  }
+
+  function gameOverSound() {
+    $gameOverSound.play();
+  }
+
+  function lifeGoneSound() {
+    $lifeGoneSound.play();
+  }
+
+  function victorySound() {
+    $victorySound.play();
   }
 
   function brickCollisionBottom($this, i) {
     $('#'+i).css({display: "none"});
     directionY = "+";
+    score += 10;
+    $("#score").html(score);
+    smashSound();
+  }
+
+  function brickCollisionRight($this, i) {
+    $('#'+i).css({display: "none"});
+    directionX = "+";
+    score += 10;
+    $("#score").html(score);
+  }
+
+  function brickCollisionTop($this, i) {
+    $('#'+i).css({display: "none"});
+    directionY = "-";
+    score += 10;
+    $("#score").html(score);
+  }
+
+  function brickCollisionLeft($this, i) {
+    $('#'+i).css({display: "none"});
+    directionX = "-";
     score += 10;
     $("#score").html(score);
   }
@@ -197,48 +242,24 @@ $(document).ready(function() {
   }
 
   function winner() {
-    if (score >= 210) {
+    if (score >= 490) {
       $('#winner').css({display : "block"});
+      clearInterval(interval);
+      victorySound();
     }
   }
 
   function createBrickField() {
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 49; i++) {
       jQuery('<div/>', {
         id: i,
         class: 'brick '+i,
       }).appendTo('#gameScreen');
       brickPositonLeft += 60;
+      var brickRow = Math.floor(i / 7);
       $("#"+i).css({
-        left: brickPositonLeft + "px",
-      });
-    }
-  }
-
-  function createBrickField1(){
-    for (var i = 7; i < 14; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 420) + "px",
-        top: brickPositonTop + "px",
-      });
-    }
-  }
-
-  function createBrickField2(){
-    for (var i = 14; i < 21; i++) {
-      jQuery('<div/>', {
-        id: i,
-        class: 'brick '+i,
-      }).appendTo('#gameScreen');
-      brickPositonLeft += 60;
-      $("#"+i).css({
-        left: (brickPositonLeft - 840) + "px",
-        top: (brickPositonTop + 20) + "px",
+        left: (brickPositonLeft - brickRow * 420) + "px",
+        top: (brickPositonTop + (brickRow - 1) * 20) + "px"
       });
     }
   }
