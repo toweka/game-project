@@ -182,9 +182,9 @@ $(document).ready(function() {
     brickCollisionBottom($("#"+i), i);
    }
 
-   // if (ballTop <= brickBottom && ballTop >= brickTop && ballRight == brickLeft) {
-   //   brickCollisionLeft($("#"+i), i);
-   // }
+   if (ballTop <= brickBottom && ballTop >= brickTop && ballRight == brickLeft) {
+     brickCollisionLeft($("#"+i), i);
+   }
   }
 
   function smashSound() {
