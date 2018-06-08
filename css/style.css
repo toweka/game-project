@@ -27,11 +27,18 @@
   background-color: #f6f6f6;
   position: absolute;
   cursor: none;
+  display: flex;
+  flex: auto;
 }
 
 span {
   text-align: center;
   text-transform: uppercase;
+}
+
+p {
+  font-style: oblique;
+  font-weight: bold;
 }
 
 body {
@@ -72,7 +79,7 @@ body {
   text-align: center;
 }
 
-#btn {
+#startBtn, #resetBtn {
   font-size: 1.5em;
   padding:.5em .5em;
   background: none;
@@ -84,12 +91,17 @@ body {
   width: 15%;
   margin-bottom: 10px;
 }
-#btn:hover {
+
+#resetBtn{
+  display: none;
+}
+
+#startBtn:hover, #resetBtn:hover {
   background: #999;
   color: white;
   border: 2px solid #999;
 }
-#btn:active {
+#startBtn:active, #resetBtn:active {
   background: #666;
   color: white;
   border: 2px solid #666;
@@ -106,12 +118,13 @@ body {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    /* background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ */
+    background-image: url(http://www.lostinwanderlust.co.uk/wp-content/uploads/2017/12/darkrift-orig_full-1024x706.jpg);
+    background-size: cover;
 }
 
 /* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: lightblue;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
