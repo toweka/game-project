@@ -7,6 +7,7 @@ $(document).ready(function() {
   var $gameScreen = $("#gameScreen");
   var lives = 3;
   var score = 0;
+  var difficulty = 1;
   var $smashSound = document.getElementById("smashSound");
   var $gameOverSound = document.getElementById("gameOverSound");
   var $lifeGoneSound = document.getElementById("lifeGoneSound");
@@ -122,7 +123,7 @@ $(document).ready(function() {
         $(document).unbind()
       });
 
-    }, 0.5);
+    }, difficulty);
     timeRunning = !timeRunning;
 
   })
