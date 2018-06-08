@@ -32,9 +32,13 @@
 * Implement prameters which allow for the game to be won
 * Introduce a game over function
 
+### Commit trendline
+
+![ScreenShot](images/commitTrendline.png)
+
 ### Challenges faced
 
---
+---
 
 #### Collision detection -
 
@@ -43,10 +47,10 @@
 *  The first step was defining the boundaries of each brick (independent of others around them) as well as the ball.
 
 ```
-   brickLeft = $this.offset().left;
-   brickTop = $this.offset().top;
-   brickRight =  brickLeft + $this.outerWidth();
-   brickBottom =  brickTop + $this.outerHeight();
+   var brickLeft = $this.offset().left;
+   var brickTop = $this.offset().top;
+   var brickRight = brickLeft + $this.outerWidth();
+   var brickBottom = brickTop + $this.outerHeight();
 
    var ballLeft = $ball.offset().left;
    var ballTop = $ball.offset().top;
