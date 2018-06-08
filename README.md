@@ -1,7 +1,5 @@
 # Breakout 
 
---
-
 *A highly addictive game produced using the AGILE methodology*
 
 ![ScreenShot](images/breakoutScreenshot.png)
